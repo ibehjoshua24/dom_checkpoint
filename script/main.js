@@ -58,7 +58,7 @@ function handleIncrement(event){
     let quantityTag = document.getElementById(product.name)
     product.quantity = product.quantity + 1
     quantityTag.innerHTML = product.quantity
-    totality(event)
+    totality()
 
 }
 
@@ -66,25 +66,26 @@ function handleDecrement(event) {
     let id = event.target.id
     id = parseInt(id)
     const product = shoppingCart.find((product) => product.id === id)
-    let quantityMag = document.getElementById(product.name)
+    let quantityTag = document.getElementById(product.name)
     product.quantity = (product.quantity > 1)? product.quantity - 1: product.quantity;
-    quantityMag.innerHTML = product.quantity
-    totality(event)
+    quantityTag.innerHTML = product.quantity
+    totality()
 
 }
 
-function totality(event) {
-    let id = event.target.id
-    id = parseInt(id)
-    const product = shoppingCart.find((product) => product.id === id)
-    let quantityTot = document.getElementById('totalPrice');
-    let singlequantity  =  (product.quantity * product.price)
-
-    
-    
-//     quantityTot = quantityTot + (product.quantity * product.price)
-//     quantityTot.innerHTML = quantityTot
-    console.log(singlequantity)
+function totality() {
+    // let id = event.target.id
+    // id = parseInt(id)
+    // const product = shoppingCart.find((product) => product.id === id)
+    let totalTag = document.getElementById('totalPrice');
+    let totalPrice = 0
+    shoppingCart.forEach((product) => {
+        const price = product.price
+        const quantity = product.quantity
+        const productPrice = price * quantity
+        totalPrice += productPrice
+    })
+    totalTag.innerHTML = `N${totalPrice}`
 }
 
 
@@ -185,6 +186,8 @@ for (product of shoppingCart) {
 
      // add productContainer to shopping container
     shoppingContainer.appendChild(productContainer);
+
+    totality()
 
     
     }
